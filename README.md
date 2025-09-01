@@ -1,4 +1,4 @@
-# The MAML Metadata Format
+# The MAML Metadata Format fdfdsaf 
 
 MAML is a YAML based metadata format for tabular data (roughly implying Metadata yAML). When developing this format specification we were highly influenced by VOTable and FITS header formats, so there is a bias to this being astronomy-centric, but it should be functional for a wide variety of table types.
 
