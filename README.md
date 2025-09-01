@@ -36,7 +36,7 @@ The superset of allowed entries for MAML is below. Not all are required, but if 
   - **ucd**: Unified Content Descriptor for IVOA (can have many). *Vector string*. **[recommended]**
   - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[required]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
-  - **qc**: Quality control check values (min, max, null). *Vector string*. **[optional]**
+  - **qc**: Quality control check values (min, max, miss). *Vector string*. **[optional]**
 
 This metadata format can be used to document datasets in a standardised way, making it easier to understand and share data within the research community. By following this format, you ensure that all relevant information about the dataset is captured and easily accessible.
 
@@ -84,7 +84,7 @@ fields:
     qc:
       - min: minimum expected data value (optional)
       - max: maximum expected data value (optional)
-      - null: missing value flag (optional)
+      - miss: missing value flag (optional)
   - name: Another field name
     ...
 ```
