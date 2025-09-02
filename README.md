@@ -228,5 +228,3 @@ The format was developed with input from the following people:
 ## Logo
 
 People always ask for logos, here's a logo:
-
-<img src="MAML_logo.png" alt="MAML-Lion" width="400" style="display: block; margin: 0 auto;"/>
