@@ -91,9 +91,9 @@ fields:
 
 Various legal example MAMLs are included in this repo, all based on the example.parquet table.
 
-## Formal JSON Schema Draft
+### Formal JSON Schema Draft
 
-More formally, we can represent it using the json schema outline standard:
+More formally, we can represent it using the json schema outline standard. Note this is not what the file should look like when saved (that should look like the above YAML mark-up), this is really a formal way to encode the schema for validation etc. So if youa re making a MAML, then focus on the above example, but if you want to strictly validate it, the below is useful.
 
 ```json
 {
@@ -215,7 +215,11 @@ More formally, we can represent it using the json schema outline standard:
 
 ```
 
-## Credit
+## Conclusions
+
+MAML is fab, you should consider using it for your survey/project.
+
+### Credit
 
 The format was developed with input from the following people:
 
@@ -225,7 +229,7 @@ The format was developed with input from the following people:
 - **Dior Etherton** (content suggestions)
 - **Jochen Liske** (content suggestions)
 
-## Logo
+### Logo
 
 People always ask for logos, here's a logo:
 
