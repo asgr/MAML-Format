@@ -210,7 +210,8 @@ More formally, we can represent it using the json schema outline standard. Note 
       }
     }
   },
-  "required": ["table", "version", "date", "author", "fields"]
+  "required": ["table", "version", "date", "author", "fields"],
+  "additionalProperties": false
 }
 ```
 

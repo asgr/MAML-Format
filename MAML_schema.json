@@ -112,5 +112,6 @@
       }
     }
   },
-  "required": ["table", "version", "date", "author", "fields"]
+  "required": ["table", "version", "date", "author", "fields"],
+  "additionalProperties": false
 }
