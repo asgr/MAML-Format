@@ -1,20 +1,20 @@
 # The MAML Metadata Format
 
-MAML is a YAML based metadata format for tabular data (roughly implying Metadata yAML). When developing this format specification we were highly influenced by VOTable and FITS header formats, so there is a bias to this being astronomy-centric, but it should be functional for a wide variety of table types.
+**MAML** is a **YAML** based metadata format for tabular data (roughly implying Metadata **yAML**). When developing this format specification we were highly influenced by VOTable and FITS header formats, so there is a bias to this being astronomy-centric, but it should be functional for a wide variety of table types.
 
 ### Why MAML? 
 
-We have VOTable and FITS header already?! Well, for various projects we were keen on a rich metadata format that was easy for humans and computers to both read and write. VOTable headers are very hard for humans to read and write (boo), and FITS is very restrictive with its formatting and only useful for FITS files directly. In comes YAML, a very human and machine readable and writable format. By restricting ourselves to a narrow subset of the language we can easily describe fairly complex table metadata (including all IVOA information). So this brings us to MAML: Metadata yAML (it kinda works :-P).
+We have VOTable and FITS header already?! Well, for various projects we were keen on a rich metadata format that was easy for humans and computers to both read and write. VOTable headers are very hard for humans to read and write (boo), and FITS is very restrictive with its formatting and only useful for FITS files directly. In comes **YAML**, a very human and machine readable and writable format. By restricting ourselves to a narrow subset of the language we can easily describe fairly complex table metadata (including all IVOA information). So this brings us to **MAML**: Metadata **yAML** (it kinda works :-P).
 
-MAML format files should be saved as example.maml etc. And the idea is the yaml string can be inserted directly into a number of different file formats that accept key-value metadata (like Apache Arrow Parquet files). In the case of Parquet files they should be written to a 'maml' extension in the metadata section of the file (so something like parquet_file\$metadata\$maml in R world).
+**MAML** format files should be saved as example.maml etc. And the idea is the **YAML** string can be inserted directly into a number of different file formats that accept key-value metadata (like Apache Arrow Parquet files). In the case of Parquet files they should be written to a 'maml' extension in the metadata section of the file (so something like parquet_file\$metadata\$maml in R world).
 
 ## MAML Metadata Format
 
-The MAML metadata format is a structured way to describe datasets, surveys, and tables using YAML. This format ensures that all necessary information about the data is captured in a clear and organized manner.
+The **MAML** metadata format is a structured way to describe datasets, surveys, and tables using **YAML**. This format ensures that all necessary information about the data is captured in a clear and organized manner.
 
 ### Informal Structure Overview
 
-The superset of allowed entries for MAML is below. Not all are required, but if present they should obey the order and naming.
+The superset of allowed entries for **MAML** is below. Not all are required, but if present they should obey the order and naming.
 
 - **survey**: The name of the survey. *Scalar string*. **[optional]**
 - **dataset**: The name of the dataset. *Scalar string*. **[recommended]**
@@ -42,11 +42,11 @@ This metadata format can be used to document datasets in a standardised way, mak
 
 A note on the *qc* field entries, these should reflect expectations for the column data held, rather than just what is there. As an example we might expects a position angle to be bounded between 0 and 180 degrees, so it is more useful to specify those limits. Basically, the *qc* entries should be used by a later validator to check the internal consistency of the data provided (and potentially catch data corruption issues). The missing value entry should usually be something sensible like NA or Null (depending on data formats), but could also be a string or integer (-999) if that is the only option for the format being used (some types of FITS and CSV files, for instance).
 
-If producing a maximal MAML then the metadata can be considered a MAML-Whale, and if only containing the required minimum entries it would be a MAML-Mouse. Between these two extremes you can choose your mammal of interest to reflect the quality/quantity of metadata. The sweet spot is obviously a MAML-Honey-Badger.
+If producing a maximal **MAML** then the metadata can be considered a **MAML**-Whale, and if only containing the required minimum entries it would be a **MAML**-Mouse. Between these two extremes you can choose your mammal of interest to reflect the quality/quantity of metadata. The sweet spot is obviously a **MAML**-Honey-Badger.
 
 ### MAML Schema Example
 
-The basic YAML schema of the MAML format looks like the following:
+The basic **YAML** schema of the **MAML** format looks like the following:
 
 ```yaml
 survey: Optional survey name
@@ -89,11 +89,11 @@ fields:
     ...
 ```
 
-Various legal example MAMLs are included in this repo, all based on the example.parquet table.
+Various legal example **MAML**s are included in this repo, all based on the example.parquet table.
 
 ### Formal JSON Schema Draft
 
-More formally, we can represent it using the json schema outline standard. Note this is not what the file should look like when saved (that should look like the above YAML mark-up), this is really a formal way to encode the schema for validation etc. So if youa re making a MAML, then focus on the above example, but if you want to strictly validate it, the below is useful.
+More formally, we can represent it using the json schema outline standard. Note this is not what the file should look like when saved (that should look like the above **YAML** mark-up), this is really a formal way to encode the schema for validation etc. So if youa re making a **MAML**, then focus on the above example, but if you want to strictly validate it, the below is useful.
 
 ```json
 {
@@ -217,7 +217,7 @@ More formally, we can represent it using the json schema outline standard. Note 
 
 ## Conclusions
 
-MAML is fab, you should consider using it for your survey/project.
+**MAML** is fab, you should consider using it for your survey/project.
 
 ### Credit
 
