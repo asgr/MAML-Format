@@ -89,7 +89,7 @@ fields:
     ...
 ```
 
-Various legal example **MAML**s are included in this repo, all based on the example.parquet table.
+Various legal example **MAML**s are included in this repo, all based on the example.parquet table (e.g. example_default.maml etc).
 
 ### Formal JSON Schema Draft
 
@@ -212,8 +212,9 @@ More formally, we can represent it using the json schema outline standard. Note 
   },
   "required": ["table", "version", "date", "author", "fields"]
 }
-
 ```
+
+The contents of the above is also in the MAML_schema.json file included in this repo.
 
 ## Conclusions
 
