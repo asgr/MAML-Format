@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dataset Metadata Schema",
+  "type": "object",
+  "properties": {
+    "survey": {
+      "type": "string",
+      "description": "Optional survey name"
+    },
+    "dataset": {
+      "type": "string",
+      "description": "Recommended dataset name"
+    },
+    "table": {
+      "type": "string",
+      "description": "Required table name"
+    },
+    "version": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "number" },
+        { "type": "integer" }
+      ],
+      "description": "Required version (string, integer, or float)"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Required date in YYYY-MM-DD format (ISO-8601)"
+    },
+    "author": {
+      "type": "string",
+      "description": "Required lead author name and <email>"
+    },
+    "coauthors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional coauthor name and optionally <email>"
+    },
+    "DOIs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional DOI string"
+    },
+    "depends": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional dataset dependency"
+    },
+    "description": {
+      "type": "string",
+      "description": "Recommended short description of the table"
+    },
+    "comments": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional comment or interesting fact"
+    },
+    "license": {
+      "type": "string",
+      "description": "Recommended license for the data"
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional keyword tag"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "data_type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Required field name"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Recommended unit of measurement"
+          },
+          "info": {
+            "type": "string",
+            "description": "Recommended short description"
+          },
+          "ucd": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Recommended UCD string"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "Required data type (e.g., int32, string, bool, double)"
+          },
+          "array_size": {
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ],
+            "description": "Optional max length of string"
+          },
+          "qc": {
+            "type": "object",
+            "properties": {
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "miss": { "type": "number" }
+            },
+            "description": "Optional quality control parameters"
+          }
+        }
+      }
+    }
+  },
+  "required": ["table", "version", "date", "author", "fields"]
+}
