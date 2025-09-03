@@ -214,6 +214,10 @@ The contents of the above is also in the MAML_schema.json file included in this 
 
 **MAML** is fab, you should consider using it for your survey/project.
 
+### License
+
+This is released and made available under the standard MIT license (see MIT_license file).
+
 ### Credit
 
 The format was developed with input from the following people:
