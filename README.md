@@ -224,9 +224,10 @@ The format was developed with input from the following people:
 
 - **Aaron Robotham** (original specification, R implementation)
 - **Sabine Bellstedt** (original Python implementation)
-- **Trystan Lambert** (Python implementation and Validation)
-- **Dior Etherton** (content suggestions)
-- **Jochen Liske** (content suggestions)
+- **Trystan Lambert** (Python implementation and validation)
+- **Dior Etherton** (content and format suggestions)
+- **Jochen Liske** (content and format suggestions)
+- **Mark Taylor** (content and format suggestions)
 
 ### Logo
 
