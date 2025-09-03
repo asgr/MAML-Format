@@ -114,11 +114,7 @@ More formally, we can represent it using the json schema outline standard. Note 
       "description": "Required table name"
     },
     "version": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "number" },
-        { "type": "integer" }
-      ],
+      "type": ["integer", "string", "number"],
       "description": "Required version (string, integer, or float)"
     },
     "date": {
@@ -174,16 +170,16 @@ More formally, we can represent it using the json schema outline standard. Note 
             "description": "Required field name"
           },
           "unit": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "Recommended unit of measurement"
           },
           "info": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "Recommended short description"
           },
           "ucd": {
-            "type": "array",
-            "items": { "type": "string" },
+            "type": ["array", "null"],
+            "items": { "type": ["string", "null"] },
             "description": "Recommended UCD string"
           },
           "data_type": {
@@ -191,18 +187,15 @@ More formally, we can represent it using the json schema outline standard. Note 
             "description": "Required data type (e.g., int32, string, bool, double)"
           },
           "array_size": {
-            "oneOf": [
-              { "type": "integer" },
-              { "type": "string" }
-            ],
+            "type": ["integer", "string", "null"],
             "description": "Optional max length of string"
           },
           "qc": {
-            "type": "object",
+            "type": ["object", "null"],
             "properties": {
-              "min": { "type": "number" },
-              "max": { "type": "number" },
-              "miss": { "type": "number" }
+              "min": { "type": ["number", "string", "null"] },
+              "max": { "type": ["number", "string", "null"] },
+              "miss": { "type": ["number", "string", "null"], }
             },
             "description": "Optional quality control parameters"
           }
