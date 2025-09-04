@@ -34,11 +34,13 @@ The superset of allowed entries for **MAML** is below. Not all are required, but
   - **unit**: The unit of measurement for the field (if applicable). *Scalar string*. **[recommended]**
   - **info**: A short description of the field. *Scalar string*. **[recommended]**
   - **ucd**: Unified Content Descriptor for IVOA (can have many). *Vector string*. **[recommended]**
-  - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[required]**
+  - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[recommended]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
   - **qc**: Quality control check values (min, max, miss). *Vector string*. **[optional]**
 
 This metadata format can be used to document datasets in a standardised way, making it easier to understand and share data within the research community. By following this format, you ensure that all relevant information about the dataset is captured and easily accessible (for both machines and humans). This format contains the superset of metadata requirements for IVOA, Data Central and astronomy surveys.
+
+A note on the *data_type* field entries. Some table formats have strictly well defined and self-describing data types for columns (FITS, Parquet) and it is almost never a good idea to supersede those. In these cases *data_type* when present is more like a validation entry because you might want to ensure the column data type has not been converted from what you expect as some point. *data_type* is critical for ASCII based tables (CSV etc) since it can be entirely ambiguous how you want an ASCII column to be interpreted, e.g. [1, 2, 3] could be integers, float16, float32 etc.
 
 A note on the *qc* field entries, these should reflect expectations for the column data held, rather than just what is there. As an example we might expects a position angle to be bounded between 0 and 180 degrees, so it is more useful to specify those limits. Basically, the *qc* entries should be used by a later validator to check the internal consistency of the data provided (and potentially catch data corruption issues). The missing value entry should usually be something sensible like NA or Null (depending on data formats), but could also be a string or integer (-999) if that is the only option for the format being used (some types of **FITS** and **CSV** files, for instance).
 
@@ -46,47 +48,64 @@ If producing a maximal **MAML** then the metadata can be considered a **MAML**-W
 
 ### MAML Schema Example
 
-The basic **YAML** schema of the **MAML** format looks like the following:
+Imagine we have the following table:
+
+```
+ ID Name       Date  Flag   RA Dec  Mag
+  1    A 2025-08-26  TRUE 45.1 3.5 20.5
+  2    B 2025-07-22 FALSE 47.2 2.8 20.3
+  3    C 2025-09-03  TRUE 43.1 1.2 15.2
+  4    D 2025-06-13  TRUE 48.9 2.9 18.8
+  5    E 2025-07-26 FALSE 45.5 1.8 22.1
+```
+
+A basic example of the **MAML** format for the above could like the following (not using all of the available fields):
 
 ```yaml
-survey: Optional survey name
-dataset: Recommended dataset name
-table: Required table name
-version: Required version (string, integer, or float)
-date: Required date in YYYY-MM-DD format (ISO-8601)
-author: Required lead author name and <email>
+survey: The Big Survey
+dataset: InputCatalogue
+table: Input_Cat_North_03
+version: 1.3
+date: '2025-09-01'
+author: Dave Smith <dave_smith_is_not_here@gmail.com>
 coauthors:
-  - Optional coauthor name and optionally <email>
-  - ...
-DOIs:
-  - Optional DOI string
-  - ...
-depends:
-  - Optional dataset dependency
-  - ...
-description: Recommended short description of the table
-comments:
-  - Optional comment or interesting fact
-  - ...
-license: Recommended license for the data
-keywords:
-  - Optional keyword tag
-  - ...
+- Joe Bloggs <joe_bloggs_is_not_here@gmail.com>
+- Jane Doe <jane_doe_is_not_here@gmail.com>
+description: Just an example
+license: MIT
 fields:
-  - name: Required field name
-    unit: Recommended unit of measurement
-    info: Recommended short description
-    ucd:
-      - Recommended UCD string
-      - ...
-    data_type: Required data type (e.g., int32, string, bool, double)
-    array_size: Optional max length of string (integer or string)
-    qc:
-      - min: minimum expected data value (optional)
-      - max: maximum expected data value (optional)
-      - miss: missing value flag (optional)
-  - name: Another field name
-    ...
+- name: ID
+  unit:
+  ucd:
+  - meta.id
+  - meta.main
+  data_type: int32
+- name: Name
+  unit:
+  ucd:
+  data_type: string
+- name: Date
+  unit:
+  ucd:
+  - time
+  - obs.exposure
+  data_type: string
+- name: Flag
+  unit:
+  ucd:
+  data_type: boolean
+- name: RA
+  unit: deg
+  ucd: pos.eq.ra
+  data_type: float64
+- name: Dec
+  unit: deg
+  ucd: pos.eq.dec
+  data_type: float64
+- name: Mag
+  unit:
+  ucd: phot.mag
+  data_type: float64
 ```
 
 Various legal example **MAML**s are included in this repo, all based on the example.parquet table (e.g. example_default.maml etc).
