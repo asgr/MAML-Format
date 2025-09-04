@@ -110,9 +110,9 @@ fields:
 
 Various legal example **MAML**s are included in this repo, all based on the example.parquet table (e.g. example_default.maml etc).
 
-### Formal JSON Schema Draft
+### Formal JSON Schema Definition
 
-More formally, we can represent it using the json schema outline standard. Note this is not what the file should look like when saved (that should look like the above **YAML** mark-up), this is really a formal way to encode the schema for validation etc. So if youa re making a **MAML**, then focus on the above example, but if you want to strictly validate it, the below is useful.
+More formally, we can represent it using the json schema outline standard. Note this is not what the file should look like when saved (that should look like the above **YAML** mark-up), this is really a formal way to encode the schema for validation etc. So if you are making a **MAML**, then focus on the above example, but if you want to strictly validate it, the below is useful.
 
 ```json
 {
@@ -246,6 +246,8 @@ More formally, we can represent it using the json schema outline standard. Note 
 ```
 
 The contents of the above is also in the MAML_schema.json file included in this repo.
+
+The above is used directly in the **R** **MAML** package **validate_MAML** function.
 
 ## Conclusions
 

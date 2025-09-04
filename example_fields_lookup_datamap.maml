@@ -23,20 +23,24 @@ keywords:
 - '...'
 fields:
 - name: ID
-  unit: 
-  ucd: meta.id
+  unit:
+  ucd:
+  - meta.id
+  - meta.main
   data_type: int32
 - name: Name
-  unit: 
-  ucd: 
+  unit:
+  ucd:
   data_type: string
 - name: Date
-  unit: 
-  ucd: time;obs.exposure
+  unit:
+  ucd:
+  - time
+  - obs.exposure
   data_type: string
 - name: Flag
-  unit: 
-  ucd: 
+  unit:
+  ucd:
   data_type: boolean
 - name: RA
   unit: deg
@@ -47,6 +51,6 @@ fields:
   ucd: pos.eq.dec
   data_type: float64
 - name: Mag
-  unit: 
+  unit:
   ucd: phot.mag
   data_type: float64

@@ -23,71 +23,75 @@ keywords:
 - '...'
 fields:
 - name: ID
-  unit: 
-  info: 
-  ucd: meta.id
+  unit:
+  info:
+  ucd:
+  - meta.id
+  - meta.main
   data_type: int32
-  array_size: 
+  array_size:
   qc:
     min: 1
     max: 5
     miss: 'Null'
 - name: Name
-  unit: 
-  info: 
-  ucd: 
+  unit:
+  info:
+  ucd:
   data_type: string
-  array_size: 
+  array_size:
   qc:
     min: A
     max: E
     miss: 'Null'
 - name: Date
-  unit: 
-  info: 
-  ucd: time;obs.exposure
+  unit:
+  info:
+  ucd:
+  - time
+  - obs.exposure
   data_type: string
-  array_size: 
+  array_size:
   qc:
     min: '2025-06-13'
     max: '2025-09-03'
     miss: 'Null'
 - name: Flag
-  unit: 
-  info: 
-  ucd: 
+  unit:
+  info:
+  ucd:
   data_type: bool
-  array_size: 
+  array_size:
   qc:
     min: 0
     max: 1
     miss: 'Null'
 - name: RA
   unit: deg
-  info: 
+  info:
   ucd: pos.eq.ra
   data_type: double
-  array_size: 
+  array_size:
   qc:
     min: 43.1
     max: 48.9
     miss: 'Null'
 - name: Dec
   unit: deg
-  info: 
+  info:
   ucd: pos.eq.dec
   data_type: double
-  array_size: 
+  array_size:
   qc:
     min: 1.2
     max: 3.5
     miss: 'Null'
 - name: Mag
-  unit: 
-  info: 
+  unit:
+  info:
   ucd: phot.mag
   data_type: double
-  array_size: 
+  array_size:
   qc:
     min: 15.2
     max: 22.1
