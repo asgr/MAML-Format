@@ -4,9 +4,11 @@
 
 ### Why MAML? 
 
-We have **VOTable** and **FITS** header already?! Well, for various projects we were keen on a rich metadata format that was easy for humans and computers to both read and write. **VOTable** headers are very hard for humans to read and write (boo), and **FITS** is very restrictive with its formatting and only useful for **FITS** files directly. In comes **YAML**, a very human and machine readable and writeable format. By restricting ourselves to a narrow subset of the language we can easily describe fairly complex table metadata (including all IVOA information). So this brings us to **MAML**: Metadata **yAML** (it kinda works :-P).
+We have **VOTable** and **FITS** header already?! Well, for various projects we were keen on a rich metadata format that was easy for humans and computers to both read and write. **VOTable** headers are very hard for humans to read and write (boo), and **FITS** is very restrictive with its formatting and only useful for **FITS** files directly. **FITS** in particular is also very open with its key-value liberty, which can be useful when writing metadata, but makes interpreting much later (when the intent of the authors is lost in time) difficult.
 
-**MAML** format files should be saved as example.maml etc. And the idea is the **YAML** string can be inserted directly into a number of different file formats that accept key-value metadata (like Apache Arrow Parquet files). In the case of Parquet files they should be written to a 'maml' extension in the metadata section of the file (so something like parquet_file\$metadata\$maml in R world).
+In comes **YAML**, a very human and machine readable and writeable format. By restricting ourselves to a narrow subset of the language we can easily describe fairly complex table metadata (including most common IVOA information). So this brings us to **MAML**: Metadata **yAML** (it kinda works :-P). By keeping metadata on strictly defined rails it makes reading easier, and removes interpretation from the intent. Say in **FITS** somebody wrote Date = '2025-03-08', but is that the 8<sup>th</sup> of March or the 3<sup>rd</sup> of August? In MAML we know it is the 8<sup>th</sup> of March because we enforce the ISO-8601 standard.
+
+**MAML** format files should be saved as example.maml etc. And the idea is the **MAML** string can be inserted directly into a number of different file formats that accept key-value metadata (like Apache Arrow Parquet files). In the case of Parquet files they should be written to a 'maml' extension in the Arrow metadata section of the file (so something like parquet_file\$metadata\$maml in R world). See the schema of the example_maml.parquet file to see this in practice.
 
 ## MAML Metadata Format
 
