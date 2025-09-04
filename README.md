@@ -127,18 +127,27 @@ More formally, we can represent it using the json schema outline standard. Note 
       "description": "Required lead author name and <email>"
     },
     "coauthors": {
-      "type": "array",
-      "items": { "type": "string" },
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
       "description": "Optional coauthor name and optionally <email>"
     },
     "DOIs": {
-      "type": "array",
-      "items": { "type": "string" },
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
       "description": "Optional DOI string"
     },
     "depends": {
-      "type": "array",
-      "items": { "type": "string" },
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
       "description": "Optional dataset dependency"
     },
     "description": {
@@ -146,17 +155,23 @@ More formally, we can represent it using the json schema outline standard. Note 
       "description": "Recommended short description of the table"
     },
     "comments": {
-      "type": "array",
-      "items": { "type": "string" },
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
       "description": "Optional comment or interesting fact"
     },
     "license": {
-      "type": "string",
+      "type": ["string", "null"],
       "description": "Recommended license for the data"
     },
     "keywords": {
-      "type": "array",
-      "items": { "type": "string" },
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
       "description": "Optional keyword tag"
     },
     "fields": {
@@ -178,8 +193,11 @@ More formally, we can represent it using the json schema outline standard. Note 
             "description": "Recommended short description"
           },
           "ucd": {
-            "type": ["array", "null"],
-            "items": { "type": ["string", "null"] },
+            "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
             "description": "Recommended UCD string"
           },
           "data_type": {
