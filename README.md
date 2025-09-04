@@ -213,7 +213,7 @@ More formally, we can represent it using the json schema outline standard. Note 
             "properties": {
               "min": { "type": ["number", "string", "null"] },
               "max": { "type": ["number", "string", "null"] },
-              "miss": { "type": ["number", "string", "null"], }
+              "miss": { "type": ["number", "string", "null"] }
             },
             "description": "Optional quality control parameters"
           }
