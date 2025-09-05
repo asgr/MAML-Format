@@ -215,7 +215,7 @@ More formally, we can represent it using the json schema outline standard. Note 
             "description": "The name of the dependent table."
           },
           "version": {
-            "type": "string",
+            "type": ["string", "number"],
             "description": "The version of the dependent table."
           }
         }
