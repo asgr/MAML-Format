@@ -8,11 +8,13 @@ coauthors:
 - Optional coauthor name <email1>
 - '... <...>'
 DOIs:
-- Optional DOI string
-- '...'
+- DOI: Valid DOI
+  type: DOI type
 depends:
-- Optional dataset dependency
-- '...'
+- survey: Dependent survey
+  dataset: Dependent dataset
+  table: Dependent table
+  version: Dependent table version
 description: Recommended short description of the table
 comments:
 - Optional comment or interesting fact
@@ -21,6 +23,7 @@ license: Recommended license for the dataset / table
 keywords:
 - Optional keyword tag
 - '...'
+MAML_version: 1.0
 fields:
 - name: ID
   unit:
