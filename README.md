@@ -82,7 +82,21 @@ author: Dave Smith <dave_smith_is_not_here@gmail.com>
 coauthors:
 - Joe Bloggs <joe_bloggs_is_not_here@gmail.com>
 - Jane Doe <jane_doe_is_not_here@gmail.com>
-description: Just an example
+DOIs:
+- DOI: 10.1093/mnras/sty440
+  type: paper
+- DOI: 10.5281/zenodo.10059903
+  type: software
+depends:
+- survey: The Medium Survey
+  dataset: SpecZ
+  table: Spec_field_01
+  version: 3.7
+- survey: The Tiny Survey
+  dataset: Stars
+  table: Phot_South
+  version: 2
+description: Just an example. Probably do not write tonnes here. A few sentences is usually about right.
 license: MIT
 MAML_version: 1.0
 fields:
