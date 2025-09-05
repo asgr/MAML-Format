@@ -21,16 +21,23 @@ The superset of allowed entries for **MAML** is below. Not all are required, but
 - **survey**: The name of the survey. *Scalar string*. **[optional]**
 - **dataset**: The name of the dataset. *Scalar string*. **[recommended]**
 - **table**: The name of the table. *Scalar string*. **[required]**
-- **version**: The version of the dataset. *Scalar string, integer or float*. **[required]**
+- **version**: The version of the table. *Scalar string, integer or float*. **[required]**
 - **date**: The date of the dataset in `YYYY-MM-DD` format (ISO-8601). *Scalar string*. **[required]**
 - **author**: The lead author name, including their email. *Scalar string*. **[required]**
 - **coauthors**: A list of co-authors, optionally each with their email. *Vector string*. **[optional]**
-- **DOIs**: A list of DOI, which can be related to this dataset, relevant papers, or code. *Vector string*. **[optional]**
-- **depends**: A list of datasets that this dataset depends on. *Vector string*. **[optional]**
+- **DOIs**: A list of DOI, which can be related to this dataset, each with the following attributes: **[optional]**
+  - **DOI**: Valid DOI reference *Scalar string*. **[required]**
+  - **type**: Type of DOI ('paper', 'software', 'data', etc) *Scalar string*. **[required]**
+- **depends**: A list of other tables that this table depends on, each with the following attributes: **[optional]**
+  - **survey**: The name of the dependent survey. *Scalar string*. **[optional]**
+  - **dataset**: The name of the dependent dataset. *Scalar string*. **[optional]**
+  - **table**: The name of the dependent table. *Scalar string*. **[required]**
+  - **version**: The version of the dependent table. *Scalar string*. **[optional]**
 - **description**: A sentence or two describing the table. *Scalar string*. **[recommended]**
 - **comments**: A list of comments or interesting facts about the data. *Vector string*. **[optional]**
 - **license**: The license for the table. *Scalar string*. **[recommended]**
 - **keywords** A list of key word tags to enrich the linking and association of this table. *Vector string*. **[optional]**
+- **MAML_version**: The version of the MAML schema being used (where this version is 1.0) *Scalar integer or float*. **[optional]**
 - **fields**: A list of fields in the dataset, each with the following attributes: **[required]**
   - **name**: The name of the field. *Scalar string*. **[required]**
   - **unit**: The unit of measurement for the field (if applicable). *Scalar string*. **[recommended]**
@@ -45,6 +52,8 @@ This metadata format can be used to document datasets in a standardised way, mak
 A note on the *data_type* field entries. Some table formats have strictly well defined and self-describing data types for columns (FITS, Parquet) and it is almost never a good idea to supersede those. In these cases *data_type* when present is more like a validation entry because you might want to ensure the column data type has not been converted from what you expect as some point. *data_type* is critical for ASCII based tables (CSV etc) since it can be entirely ambiguous how you want an ASCII column to be interpreted, e.g. [1, 2, 3] could be integers, float16, float32 etc.
 
 A note on the *qc* field entries, these should reflect expectations for the column data held, rather than just what is there. As an example we might expects a position angle to be bounded between 0 and 180 degrees, so it is more useful to specify those limits. Basically, the *qc* entries should be used by a later validator to check the internal consistency of the data provided (and potentially catch data corruption issues). The missing value entry should usually be something sensible like NA or Null (depending on data formats), but could also be a string or integer (-999) if that is the only option for the format being used (some types of **FITS** and **CSV** files, for instance).
+
+Note, if you want to rigorously validate a MAML then you explicitly encode the *schema_version* being targeted. Different minor version JSON schemas are included in the repo for backwards compatibility (so use MAML_schema_v1.0 to validate a MAML that claims to be using *schema_version* 1.0). The README front page of the repo always represents the latest minor version increment of MAML.
 
 If producing a maximal **MAML** then the metadata can be considered a **MAML**-Whale, and if only containing the required minimum entries it would be a **MAML**-Mouse. Between these two extremes you can choose your mammal of interest to reflect the quality/quantity of metadata. The sweet spot is obviously a **MAML**-Honey-Badger.
 
@@ -75,6 +84,7 @@ coauthors:
 - Jane Doe <jane_doe_is_not_here@gmail.com>
 description: Just an example
 license: MIT
+MAML_version: 1.0
 fields:
 - name: ID
   unit:
@@ -135,7 +145,7 @@ More formally, we can represent it using the json schema outline standard. Note 
       "description": "Required table name"
     },
     "version": {
-      "type": ["integer", "string", "number"],
+      "type": ["string", "number"],
       "description": "Required version (string, integer, or float)"
     },
     "date": {
@@ -156,20 +166,46 @@ More formally, we can represent it using the json schema outline standard. Note 
       "description": "Optional coauthor name and optionally <email>"
     },
     "DOIs": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional DOI string"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["DOI", "type"],
+        "properties": {
+          "DOI": {
+            "type": "string",
+            "description": "Valid DOI"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of DOI"
+          }
+        }
+      }
     },
     "depends": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional dataset dependency"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["table"],
+        "properties": {
+          "survey": {
+            "type": "string",
+            "description": "The name of the dependent survey."
+          },
+          "dataset": {
+            "type": "string",
+            "description": "The name of the dependent dataset."
+          },
+          "table": {
+            "type": "string",
+            "description": "The name of the dependent table."
+          },
+          "version": {
+            "type": "string",
+            "description": "The version of the dependent table."
+          }
+        }
+      }
     },
     "description": {
       "type": "string",
@@ -194,6 +230,11 @@ More formally, we can represent it using the json schema outline standard. Note 
               { "type": "null" }
              ],
       "description": "Optional keyword tag"
+    },
+    "MAML_version": {
+      "type": "number",
+      "const": 1.0,
+      "description": "Optional version of the MAML schema"
     },
     "fields": {
       "type": "array",

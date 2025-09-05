@@ -16,7 +16,7 @@
       "description": "Required table name"
     },
     "version": {
-      "type": ["integer", "string", "number"],
+      "type": ["string", "number"],
       "description": "Required version (string, integer, or float)"
     },
     "date": {
@@ -37,20 +37,46 @@
       "description": "Optional coauthor name and optionally <email>"
     },
     "DOIs": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional DOI string"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["DOI", "type"],
+        "properties": {
+          "DOI": {
+            "type": "string",
+            "description": "Valid DOI"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of DOI"
+          }
+        }
+      }
     },
     "depends": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional dataset dependency"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["table"],
+        "properties": {
+          "survey": {
+            "type": "string",
+            "description": "The name of the dependent survey."
+          },
+          "dataset": {
+            "type": "string",
+            "description": "The name of the dependent dataset."
+          },
+          "table": {
+            "type": "string",
+            "description": "The name of the dependent table."
+          },
+          "version": {
+            "type": "string",
+            "description": "The version of the dependent table."
+          }
+        }
+      }
     },
     "description": {
       "type": "string",
@@ -75,6 +101,11 @@
               { "type": "null" }
              ],
       "description": "Optional keyword tag"
+    },
+    "MAML_version": {
+      "type": "number",
+      "const": 1.0,
+      "description": "Optional version of the MAML schema"
     },
     "fields": {
       "type": "array",
@@ -103,8 +134,8 @@
             "description": "Recommended UCD string"
           },
           "data_type": {
-            "type": ["string", "null"],
-            "description": "Optional data type (e.g., int32, string, bool, double)"
+            "type": "string",
+            "description": "Required data type (e.g., int32, string, bool, double)"
           },
           "array_size": {
             "type": ["integer", "string", "null"],
