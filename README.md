@@ -45,7 +45,7 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
   - **ucd**: Unified Content Descriptor for IVOA (can have many). *Vector string*. **[recommended]**
   - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[recommended]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
-  - **qc**: Quality control check array (min, max, miss): **[optional]**
+  - **qc**: Quality control check array (min-max-miss): **[optional]**
     - **min**: Minimum value expected in column data. *Scalar numeric* **[required]**
     - **max**: Maximum value expected in column data. *Scalar numeric* **[required]**
     - **miss**: Missing value value. *Scalar numeric/string* **[required]**
@@ -64,7 +64,7 @@ If producing a maximal **MAML** then the metadata can be considered a **MAML**-W
 
 MAML v1.1 adds two additional fields: *keyarray** and *extra*. This makes it a less restricted format (which can be good and bad). If you do not require these fields then it is better you officially target MAML v1.0 since it allows for stricter validation. Naturally if using this extended format the *MAML_version* field should be 1.1.
 
-- **keyarray**: A FITS style key, valye comment array: **[optional]**
+- **keyarray**: A FITS style key-value-comment array: **[optional]**
   - **key**: Name of key *Scalar string*. **[required]**
   - **value**: Value/s of key *Scalar/vector string/number*. **[required]**
   - **comment**: Description of key *Scalar string*. **[required]**
