@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dataset Metadata Schema",
+  "type": "object",
+  "properties": {
+    "survey": {
+      "type": "string",
+      "description": "Optional survey name"
+    },
+    "dataset": {
+      "type": "string",
+      "description": "Recommended dataset name"
+    },
+    "table": {
+      "type": "string",
+      "description": "Required table name"
+    },
+    "version": {
+      "type": ["string", "number"],
+      "description": "Required version (string, integer, or float)"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Required date in YYYY-MM-DD format (ISO-8601)"
+    },
+    "author": {
+      "type": "string",
+      "description": "Required lead author name and <email>"
+    },
+    "coauthors": {
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+      "description": "Optional coauthor name and optionally <email>"
+    },
+    "DOIs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["DOI", "type"],
+        "properties": {
+          "DOI": {
+            "type": "string",
+            "description": "Valid DOI"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of DOI"
+          }
+        }
+      }
+    },
+    "depends": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["table"],
+        "properties": {
+          "survey": {
+            "type": "string",
+            "description": "The name of the dependent survey."
+          },
+          "dataset": {
+            "type": "string",
+            "description": "The name of the dependent dataset."
+          },
+          "table": {
+            "type": "string",
+            "description": "The name of the dependent table."
+          },
+          "version": {
+            "type": ["string", "number"],
+            "description": "The version of the dependent table."
+          }
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Recommended short description of the table"
+    },
+    "comments": {
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+      "description": "Optional comment or interesting fact"
+    },
+    "license": {
+      "type": ["string", "null"],
+      "description": "Recommended license for the data"
+    },
+    "keywords": {
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+      "description": "Optional keyword tag"
+    },
+    "keyarray": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value", "comment"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key name"
+          },
+          "value": {
+            "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": ["number", "string"]} }
+             ],
+            "description": "Value/s of key"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Description of key"
+          }
+        }
+      }
+    },
+    "extra": {
+      "type": "object",
+    },
+    "MAML_version": {
+      "type": "number",
+      "const": 1.1,
+      "description": "Optional version of the MAML schema"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "data_type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Required field name"
+          },
+          "unit": {
+            "type": ["string", "null"],
+            "description": "Recommended unit of measurement"
+          },
+          "info": {
+            "type": ["string", "null"],
+            "description": "Recommended short description"
+          },
+          "ucd": {
+            "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+            "description": "Recommended UCD string"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "Required data type (e.g., int32, string, bool, double)"
+          },
+          "array_size": {
+            "type": ["integer", "string", "null"],
+            "description": "Optional max length of string"
+          },
+          "qc": {
+            "type": ["object", "null"],
+            "properties": {
+              "min": { "type": ["number", "string", "null"] },
+              "max": { "type": ["number", "string", "null"] },
+              "miss": { "type": ["number", "string", "null"] }
+            },
+            "description": "Optional quality control parameters"
+          }
+        }
+      }
+    }
+  },
+  "required": ["table", "version", "date", "author", "fields"],
+  "additionalProperties": false
+}
