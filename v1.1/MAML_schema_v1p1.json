@@ -114,7 +114,7 @@
           },
           "value": {
             "oneOf": [
-              { "type": "string"},
+              { "type": ["number", "string"]},
               { "type": "array", "items": { "type": ["number", "string"]} }
              ],
             "description": "Value/s of key"

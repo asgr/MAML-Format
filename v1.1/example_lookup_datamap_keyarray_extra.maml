@@ -24,7 +24,13 @@ keywords:
 - Optional keyword tag
 - '...'
 keyarray:
-- key: test
+- key: test_scalar
+  value: 8.1
+  comment: something
+- key: test_string
+  value: Fun times
+  comment: something
+- key: test_vector
   value: [1.8, 2, 5]
   comment: something
 extra:
