@@ -14,9 +14,9 @@ In comes **YAML**, a very human and machine readable and writeable format. By re
 
 The **MAML** metadata format is a structured way to describe datasets, surveys, and tables using **YAML**. This format ensures that all necessary information about the data is captured in a clear and organized manner.
 
-### Informal Structure Overview
+### Informal Structure Overview MAML v1.0
 
-The superset of allowed entries for **MAML** is below. Not all are required, but if present they should obey the order and naming.
+The super set of allowed entries for **MAML** v1.0 is below. Not all are required, but if present they should obey the order and naming.
 
 - **survey**: The name of the survey. *Scalar string*. **[optional]**
 - **dataset**: The name of the dataset. *Scalar string*. **[recommended]**
@@ -45,7 +45,10 @@ The superset of allowed entries for **MAML** is below. Not all are required, but
   - **ucd**: Unified Content Descriptor for IVOA (can have many). *Vector string*. **[recommended]**
   - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[recommended]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
-  - **qc**: Quality control check values (min, max, miss). *Vector string*. **[optional]**
+  - **qc**: Quality control check array (min, max, miss): **[optional]**
+    - **min**: Minimum value expected in column data. *Scalar numeric* **[required]**
+    - **max**: Maximum value expected in column data. *Scalar numeric* **[required]**
+    - **miss**: Missing value value. *Scalar numeric/string* **[required]**
 
 This metadata format can be used to document datasets in a standardised way, making it easier to understand and share data within the research community. By following this format, you ensure that all relevant information about the dataset is captured and easily accessible (for both machines and humans). This format contains the superset of metadata requirements for IVOA, Data Central and astronomy surveys.
 
@@ -57,7 +60,21 @@ Note, if you want to rigorously validate a MAML then you explicitly encode the *
 
 If producing a maximal **MAML** then the metadata can be considered a **MAML**-Whale, and if only containing the required minimum entries it would be a **MAML**-Mouse. Between these two extremes you can choose your mammal of interest to reflect the quality/quantity of metadata. The sweet spot is obviously a **MAML**-Honey-Badger.
 
-### MAML Schema Example
+### Informal Structure Overview MAML v1.1
+
+MAML v1.1 is adds two additional fields: *keyarray** and *extra*. This makes it a less restricted format (which can be good and bad). If you do not require these fields then it is better you officially target MAML v1.0 since it allows for stricter validation. Naturally if using this extended format the *MAML_version* field should be 1.1.
+
+- **keyarray**: A FITS style key, valye comment array: **[optional]**
+  - **key**: Name of key *Scalar string*. **[required]**
+  - **value**: Value/s of key *Scalar/vector string/number*. **[required]**
+  - **comment**: Description of key *Scalar string*. **[required]**
+- **extra**: Any type of legal YAML. **[optional]**
+
+**keyarray** is similar in spirit to traditional FITS key-value-comment headers. The main difference is the value can be a scalar or a vector. This might be useful is the key is really a lot of similar quantities. The basic array structure is validated, so if this field can be used rather than **extra** it should be.
+
+**extra** is a totally free-form field that can contain any legal **YAML**. This cannot be validated beyond checking the name of the field.
+
+## MAML Schema Example
 
 Imagine we have the following table:
 
@@ -138,173 +155,9 @@ Various legal example **MAML**s are included in this repo, all based on the exam
 
 ### Formal JSON Schema Definition
 
-More formally, we can represent it using the json schema outline standard. Note this is not what the file should look like when saved (that should look like the above **YAML** mark-up), this is really a formal way to encode the schema for validation etc. So if you are making a **MAML**, then focus on the above example, but if you want to strictly validate it, the below is useful.
+The v1.x folders contain MAML_schema_v1px.json files that strictly encode the specific version of MAML being targeted. Look at these to see a more machine rigorous definition of what constitutes a valid format.
 
-```json
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Dataset Metadata Schema",
-  "type": "object",
-  "properties": {
-    "survey": {
-      "type": "string",
-      "description": "Optional survey name"
-    },
-    "dataset": {
-      "type": "string",
-      "description": "Recommended dataset name"
-    },
-    "table": {
-      "type": "string",
-      "description": "Required table name"
-    },
-    "version": {
-      "type": ["string", "number"],
-      "description": "Required version (string, integer, or float)"
-    },
-    "date": {
-      "type": "string",
-      "format": "date",
-      "description": "Required date in YYYY-MM-DD format (ISO-8601)"
-    },
-    "author": {
-      "type": "string",
-      "description": "Required lead author name and <email>"
-    },
-    "coauthors": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional coauthor name and optionally <email>"
-    },
-    "DOIs": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["DOI", "type"],
-        "properties": {
-          "DOI": {
-            "type": "string",
-            "description": "Valid DOI"
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of DOI"
-          }
-        }
-      }
-    },
-    "depends": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["table"],
-        "properties": {
-          "survey": {
-            "type": "string",
-            "description": "The name of the dependent survey."
-          },
-          "dataset": {
-            "type": "string",
-            "description": "The name of the dependent dataset."
-          },
-          "table": {
-            "type": "string",
-            "description": "The name of the dependent table."
-          },
-          "version": {
-            "type": ["string", "number"],
-            "description": "The version of the dependent table."
-          }
-        }
-      }
-    },
-    "description": {
-      "type": "string",
-      "description": "Recommended short description of the table"
-    },
-    "comments": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional comment or interesting fact"
-    },
-    "license": {
-      "type": ["string", "null"],
-      "description": "Recommended license for the data"
-    },
-    "keywords": {
-      "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-      "description": "Optional keyword tag"
-    },
-    "MAML_version": {
-      "type": "number",
-      "const": 1.0,
-      "description": "Optional version of the MAML schema"
-    },
-    "fields": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name", "data_type"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Required field name"
-          },
-          "unit": {
-            "type": ["string", "null"],
-            "description": "Recommended unit of measurement"
-          },
-          "info": {
-            "type": ["string", "null"],
-            "description": "Recommended short description"
-          },
-          "ucd": {
-            "oneOf": [
-              { "type": "string"},
-              { "type": "array", "items": { "type": "string"} },
-              { "type": "null" }
-             ],
-            "description": "Recommended UCD string"
-          },
-          "data_type": {
-            "type": "string",
-            "description": "Required data type (e.g., int32, string, bool, double)"
-          },
-          "array_size": {
-            "type": ["integer", "string", "null"],
-            "description": "Optional max length of string"
-          },
-          "qc": {
-            "type": ["object", "null"],
-            "properties": {
-              "min": { "type": ["number", "string", "null"] },
-              "max": { "type": ["number", "string", "null"] },
-              "miss": { "type": ["number", "string", "null"] }
-            },
-            "description": "Optional quality control parameters"
-          }
-        }
-      }
-    }
-  },
-  "required": ["table", "version", "date", "author", "fields"],
-  "additionalProperties": false
-}
-```
-
-The contents of the above is also in the MAML_schema.json file included in this repo.
-
-The above is used directly in the **R** **MAML** package **validate_MAML** function.
+These JSON schemas are used directly in the **R** **MAML** package **validate_MAML** function.
 
 ## Conclusions
 
