@@ -37,7 +37,7 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
 - **comments**: A list of comments or interesting facts about the data. *Vector string*. **[optional]**
 - **license**: The license for the table. *Scalar string*. **[recommended]**
 - **keywords** A list of key word tags to enrich the linking and association of this table. *Vector string*. **[optional]**
-- **MAML_version**: The version of the MAML schema being used (where this version is 1.0) *Scalar integer or float*. **[optional]**
+- **MAML_version**: The version of the MAML schema being used (where this version is 1.0) *Scalar integer or float*. **[recommended]**
 - **fields**: A list of fields in the dataset, each with the following attributes: **[required]**
   - **name**: The name of the field. *Scalar string*. **[required]**
   - **unit**: The unit of measurement for the field (if applicable). *Scalar string*. **[recommended]**
@@ -56,13 +56,13 @@ A note on the *data_type* field entries. Some table formats have strictly well d
 
 A note on the *qc* field entries, these should reflect expectations for the column data held, rather than just what is there. As an example we might expects a position angle to be bounded between 0 and 180 degrees, so it is more useful to specify those limits. Basically, the *qc* entries should be used by a later validator to check the internal consistency of the data provided (and potentially catch data corruption issues). The missing value entry should usually be something sensible like NA or Null (depending on data formats), but could also be a string or integer (-999) if that is the only option for the format being used (some types of **FITS** and **CSV** files, for instance).
 
-Note, if you want to rigorously validate a MAML then you explicitly encode the *schema_version* being targeted. Different minor version JSON schemas are included in the repo for backwards compatibility (so use MAML_schema_v1.0 to validate a MAML that claims to be using *schema_version* 1.0). The README front page of the repo always represents the latest minor version increment of MAML.
+Note, if you want to rigorously validate a MAML then you should explicitly encode the *MAML_version* being targeted. Different minor version JSON schema are included in the repo for backwards compatibility (so use MAML_schema_v1.0 to validate a MAML that claims to be using *schema_version* 1.0). The README front page will contain the informal evolution of the standard, the aim is the format should always be backwards compatible, so a newer version of the JSON schema validator should pass older MAML version.
 
 If producing a maximal **MAML** then the metadata can be considered a **MAML**-Whale, and if only containing the required minimum entries it would be a **MAML**-Mouse. Between these two extremes you can choose your mammal of interest to reflect the quality/quantity of metadata. The sweet spot is obviously a **MAML**-Honey-Badger.
 
 ### Informal Structure Overview MAML v1.1
 
-MAML v1.1 is adds two additional fields: *keyarray** and *extra*. This makes it a less restricted format (which can be good and bad). If you do not require these fields then it is better you officially target MAML v1.0 since it allows for stricter validation. Naturally if using this extended format the *MAML_version* field should be 1.1.
+MAML v1.1 adds two additional fields: *keyarray** and *extra*. This makes it a less restricted format (which can be good and bad). If you do not require these fields then it is better you officially target MAML v1.0 since it allows for stricter validation. Naturally if using this extended format the *MAML_version* field should be 1.1.
 
 - **keyarray**: A FITS style key, valye comment array: **[optional]**
   - **key**: Name of key *Scalar string*. **[required]**
@@ -70,9 +70,9 @@ MAML v1.1 is adds two additional fields: *keyarray** and *extra*. This makes it 
   - **comment**: Description of key *Scalar string*. **[required]**
 - **extra**: Any type of legal YAML. **[optional]**
 
-**keyarray** is similar in spirit to traditional FITS key-value-comment headers. The main difference is the value can be a scalar or a vector. This might be useful is the key is really a lot of similar quantities. The basic array structure is validated, so if this field can be used rather than **extra** it should be.
+**keyarray** is similar in spirit to traditional FITS key-value-comment headers. The main difference is the value can be a scalar or a vector. This might be useful is the key is really a lot of similar quantities. The basic key-value-comment array structure is validated, so if this field can be used rather than **extra** it should be.
 
-**extra** is a totally free-form field that can contain any legal **YAML**. This cannot be validated beyond checking the name of the field.
+**extra** is a totally free-form field that can contain any legal **YAML**. This cannot be validated beyond checking the name of the field. Using this field is therefore "user beware". We would not expect **MAML** readers and code that interacts with it to necessarily even make use of this field since it is effectively impossible to predict the contents. Avoid using this field unless it really cannot be avoided!
 
 ## MAML Schema Example
 
