@@ -1,3 +1,15 @@
+## Table of Contents
+
+1. [The MAML Metadata Format]
+4. [MAML Format Example]
+5. [MAML Version Control]
+   - [Formal JSON Schema Definition]
+   - [Adaptation]
+6. [Conclusions]
+   - [License]
+   - [Credit]
+   - [Logo]
+
 # The MAML Metadata Format
 
 **MAML** is a **YAML** based metadata format for tabular data (roughly implying Metadata **yAML**). When developing this format specification we were highly influenced by **VOTable** and **FITS** header formats, so there is a bias to this being astronomy-centric, but it should be functional for a wide variety of table types.
