@@ -127,7 +127,7 @@
       }
     },
     "extra": {
-      "type": "object",
+      "type": "object"
     },
     "MAML_version": {
       "type": "number",
