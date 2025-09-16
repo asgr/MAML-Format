@@ -57,7 +57,7 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
   - **unit**: The unit of measurement for the field (if applicable). *Scalar string*. **[recommended]**
   - **info**: A short description of the field. *Scalar string*. **[recommended]**
   - **ucd**: Unified Content Descriptor for IVOA (can have many). *Vector string*. **[recommended]**
-  - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[recommended]**
+  - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[required]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
   - **qc**: Quality control check array (min-max-miss): **[optional]**
     - **min**: Minimum value expected in column data. *Scalar numeric* **[required]**
