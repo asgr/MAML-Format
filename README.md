@@ -74,7 +74,7 @@ If producing a maximal **MAML** then the metadata can be considered a **MAML**-W
 
 ### Informal Structure Overview MAML v1.1
 
-**MAML** v1.1 adds two additional fields: *keyarray** and *extra*. This makes it a less restricted format (which can be good and bad). If you do not require these fields then it is better you officially target **MAML** v1.0 since it allows for stricter validation. Naturally if using this extended format the *MAML_version* field should be 1.1.
+**MAML** v1.1 adds two additional fields: *keyarray* and *extra*. This makes it a less restricted format (which can be good and bad). If you do not require these fields then it is better you officially target **MAML** v1.0 since it allows for stricter validation. Naturally if using this extended format the *MAML_version* field should be 1.1.
 
 - **keyarray**: A FITS style key-value-comment array: **[optional]**
   - **key**: Name of key *Scalar string*. **[required]**
