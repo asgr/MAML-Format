@@ -39,7 +39,7 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
 - **date**: The date of the dataset in `YYYY-MM-DD` format (ISO-8601). *Scalar string*. **[required]**
 - **author**: The lead author name, including their email. *Scalar string*. **[required]**
 - **coauthors**: A list of co-authors, optionally each with their email. *Vector string*. **[optional]**
-- **DOIs**: A list of DOI, which can be related to this dataset, each with the following attributes: **[optional]**
+- **DOIs**: A list of DOI, which can be related to this table, each with the following attributes: **[optional]**
   - **DOI**: Valid DOI reference *Scalar string*. **[required]**
   - **type**: Type of DOI ('paper', 'software', 'data', etc) *Scalar string*. **[required]**
 - **depends**: A list of other tables that this table depends on, each with the following attributes: **[optional]**
@@ -167,7 +167,7 @@ Various legal example **MAML**s are included in this repo inside version folders
 
 ## MAML Version Control
 
-The normal path will be that minor version increments expand fields and make the standard more expansive and flexible, and major version increments change behaviour, fix weaker aspects of the format, and increase strictness. In general you should pick the major version via the features and style you prefer, and then attempt to choose the strictest (lowest valued) minor version that covers your use case. This will make the **MAML** useful for you, and the validation as strict as possible which should reduce errors.
+The normal path will be that minor version increments expand fields and make the standard more expansive and flexible, and major version increments change behaviour, fix weaker aspects of the format, and are not guaranteed to be backwards compatible. In general you should pick the major version via the features and style you prefer, and then attempt to choose the strictest (lowest valued) minor version that covers your use case. This will make the **MAML** useful for you, and the validation as strict as possible which should reduce errors.
 
 ### Formal JSON Schema Definition
 
