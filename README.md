@@ -175,7 +175,7 @@ The v1.X folders contain MAML_schema_v1pX.json files that strictly encode the sp
 
 Note, if you want to rigorously validate a **MAML** then you should explicitly encode the *MAML_version* being targeted. Different minor version **JSON** schema are included in the repo for backwards compatibility (so use MAML_schema_v1.0 to validate a **MAML** that claims to be using *MAML_version* 1.0). The README front page will contain the informal evolution of the standard via describing major and minor version changes. These **JSON** schema are used directly in the **R** **MAML** package **validate_MAML** function.
 
-Why do we not require *MAML_version* in the **MAML**? On balance we recognised certain use cases where people are using a very small subset of **MAML** perhaps do not want to pollute their metadata with a *MAML_version* field. In these cases people can still informally benefit from using the well structured **MAML** metadata format (and the associated tools). The downside is such metadata will certainly fail **MAML** validation, and some software may not parse it properly (or at all). If that is no concern, then users can drop that field.
+Why do we not require *MAML_version* in the **MAML**? On balance we recognised certain use cases where people are using a very small subset of **MAML** perhaps do not want to pollute their metadata with a *MAML_version* field. In these cases people can still informally benefit from using the well structured **MAML** metadata format (and the associated tools). 
 
 ### Adaptation
 
