@@ -38,7 +38,7 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
 - **version**: The version of the table. *Scalar string, integer or float*. **[required]**
 - **date**: The date of the dataset in `YYYY-MM-DD` format (ISO-8601). *Scalar string*. **[required]**
 - **author**: The lead author name, including their email. *Scalar string*. **[required]**
-- **coauthors**: A list of co-authors, optionally each with their email. *Vector string*. **[optional]**
+- **coauthors**: A list of co-authors, optionally each with their email. *Scalar/Vector string*. **[optional]**
 - **DOIs**: A list of DOI, which can be related to this table, each with the following attributes: **[optional]**
   - **DOI**: Valid DOI reference *Scalar string*. **[required]**
   - **type**: Type of DOI ('paper', 'software', 'data', etc) *Scalar string*. **[required]**
@@ -50,13 +50,13 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
 - **description**: A sentence or two describing the table. *Scalar string*. **[recommended]**
 - **comments**: A list of comments or interesting facts about the data. *Vector string*. **[optional]**
 - **license**: The license for the table. *Scalar string*. **[recommended]**
-- **keywords**: A list of key word tags to enrich the linking and association of this table. *Vector string*. **[optional]**
+- **keywords**: A list of key word tags to enrich the linking and association of this table. *Scalar/Vector string*. **[optional]**
 - **MAML_version**: The version of the **MAML** schema being used (where this version is 1.0) *Scalar integer or float*. **[recommended]**
 - **fields**: A list of fields in the dataset, each with the following attributes: **[required]**
   - **name**: The name of the field. *Scalar string*. **[required]**
   - **unit**: The unit of measurement for the field (if applicable). *Scalar string*. **[recommended]**
   - **info**: A short description of the field. *Scalar string*. **[recommended]**
-  - **ucd**: Unified Content Descriptor for IVOA (can have many). *Vector string*. **[recommended]**
+  - **ucd**: Unified Content Descriptor for IVOA (can have many). *Scalar/Vector string*. **[recommended]**
   - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[required]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
   - **qc**: Quality control check array (min-max-miss): **[optional]**
