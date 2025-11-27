@@ -52,7 +52,7 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
 - **license**: The license for the table. *Scalar string*. **[recommended]**
 - **keywords**: A list of key word tags to enrich the linking and association of this table. *Scalar/Vector string*. **[optional]**
 - **MAML_version**: The version of the **MAML** schema being used (where this version is 1.0) *Scalar integer or float*. **[recommended]**
-- **fields**: A list of fields in the dataset, each with the following attributes: **[required]**
+- **fields**: A list of fields in the table, each with the following attributes: **[required]**
   - **name**: The name of the field. *Scalar string*. **[required]**
   - **unit**: The unit of measurement for the field (if applicable). *Scalar string*. **[recommended]**
   - **info**: A short description of the field. *Scalar string*. **[recommended]**
