@@ -51,7 +51,8 @@
             "description": "Type of DOI"
           }
         }
-      }
+      },
+      "description": "Optional list of DOIs relevant to this table"
     },
     "depends": {
       "type": "array",
@@ -76,7 +77,8 @@
             "description": "The version of the dependent table."
           }
         }
-      }
+      },
+      "description": "Optional list of tables this table depends on"
     },
     "description": {
       "type": "string",
@@ -88,7 +90,7 @@
               { "type": "array", "items": { "type": "string"} },
               { "type": "null" }
              ],
-      "description": "Optional comment or interesting fact"
+      "description": "Optional list of comments or interesting facts"
     },
     "license": {
       "type": ["string", "null"],
@@ -100,7 +102,7 @@
               { "type": "array", "items": { "type": "string"} },
               { "type": "null" }
              ],
-      "description": "Optional keyword tag"
+      "description": "Optional list of key word tags to enrich the linking and association of this table"
     },
     "MAML_version": {
       "type": "number",
@@ -144,14 +146,24 @@
           "qc": {
             "type": ["object", "null"],
             "properties": {
-              "min": { "type": ["number", "string", "null"] },
-              "max": { "type": ["number", "string", "null"] },
-              "miss": { "type": ["number", "string", "null"] }
+              "min": { 
+                "type": ["number", "string", "null"],
+                "description": "Required data minimum value" 
+              },
+              "max": { 
+                "type": ["number", "string", "null"],
+                "description": "Required data maximum value" 
+              },
+              "miss": { 
+                "type": ["number", "string", "null"],
+                "description": "Required data missing (or null) value" 
+              }
             },
             "description": "Optional quality control parameters"
           }
         }
-      }
+      },
+      "description": "Required list of all the columns or fields of this table"
     }
   },
   "required": ["table", "version", "date", "author", "fields"],
