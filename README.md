@@ -60,15 +60,17 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
   - **data_type**: The data type of the field (e.g., `int32`, `string`, `bool`, `double`). *Scalar string*. **[required]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
   - **qc**: Quality control check array (min-max-miss): **[optional]**
-    - **min**: Minimum value expected in column data. *Scalar numeric* **[required]**
-    - **max**: Maximum value expected in column data. *Scalar numeric* **[required]**
+    - **min**: Minimum value expected in column data. *Scalar numeric/string* **[required]**
+    - **max**: Maximum value expected in column data. *Scalar numeric/string* **[required]**
     - **miss**: Missing value value. *Scalar numeric/string* **[required]**
 
 This metadata format can be used to document datasets in a standardised way, making it easier to understand and share data within the research community. By following this format, you ensure that all relevant information about the dataset is captured and easily accessible (for both machines and humans). This format contains the superset of metadata requirements for IVOA, Data Central and astronomy surveys.
 
 A note on the *data_type* field entries. Some table formats have strictly well defined and self-describing data types for columns (FITS, Parquet) and it is almost never a good idea to supersede those. In these cases *data_type* when present is more like a validation entry because you might want to ensure the column data type has not been converted from what you expect as some point. *data_type* is critical for ASCII based tables (CSV etc) since it can be entirely ambiguous how you want an ASCII column to be interpreted, e.g. [1, 2, 3] could be integers, float16, float32 etc.
 
-A note on the *qc* field entries, these should reflect expectations for the column data held, rather than just what is there. As an example we might expects a position angle to be bounded between 0 and 180 degrees, so it is more useful to specify those limits. Basically, the *qc* entries should be used by a later validator to check the internal consistency of the data provided (and potentially catch data corruption issues). The missing value entry should usually be something sensible like NA or Null (depending on data formats), but could also be a string or integer (-999) if that is the only option for the format being used (some types of **FITS** and **CSV** files, for instance).
+A note on the *qc* field entries, these should reflect expectations for the column data held, rather than just what is there. As an example we might expects a position angle to be bounded between 0 and 180 degrees, so it is more useful to specify those limits. Basically, the *qc* entries should be used by a later validator to check the internal consistency of the data provided (and potentially catch data corruption issues). The missing value entry should usually be something sensible like NA or Null (depending on data formats), but could also be a string or integer (-999) if that is the only option for the format being used (some types of **FITS** and **CSV** files, for instance). Re *qc* *min* and *max*, they are considered to be inclusive limits when used as a numeric scalar. If you wish to encode non-inclusive limits then you can use a character to describe this, e.g. when encoding RA you actually want it to be a value between 0 inclusively and 360 exclusively, so this would become max: >= 0 and min: < 360.
+
+The *ucd* field is a bit special in that you can either provide a YAML style vector for separate UCDs (primary first) or provide a semi-colon separated scalar to be consistent with IVOA. E.g. in the example MAML below this would look like ucd: meta.id;meta.main.
 
 If producing a maximal **MAML** then the metadata can be considered a **MAML**-Whale, and if only containing the required minimum entries it would be a **MAML**-Mouse. Between these two extremes you can choose your mammal of interest to reflect the quality/quantity of metadata. The sweet spot is obviously a **MAML**-Honey-Badger.
 
