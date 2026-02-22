@@ -63,7 +63,7 @@ fields:
   unit:
   info:
   ucd:
-  data_type: bool
+  data_type: boolean
   array_size:
   qc:
     min: 0
@@ -73,7 +73,7 @@ fields:
   unit: deg
   info:
   ucd: pos.eq.ra
-  data_type: double
+  data_type: float64
   array_size:
   qc:
     min: 43.1
@@ -83,7 +83,7 @@ fields:
   unit: deg
   info:
   ucd: pos.eq.dec
-  data_type: double
+  data_type: float64
   array_size:
   qc:
     min: 1.2
@@ -93,7 +93,7 @@ fields:
   unit:
   info:
   ucd: phot.mag
-  data_type: double
+  data_type: float64
   array_size:
   qc:
     min: 15.2
