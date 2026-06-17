@@ -175,7 +175,7 @@
           "col_size": {
             "type": ["integer", "null"],
             "minimum": 1,
-            "description": "Optional vector column size (positive integer). If name ends with '_X' and col_size = N, the entry represents N blown-up columns named prefix_1, prefix_2, ..., prefix_N (TopCat style). If name does not end with '_X' and col_size > 1, the column directly contains vector cells of that length (FITS binary / Parquet style). If col_size is absent, the name is taken literally."
+            "description": "Optional vector column size (positive integer). If name ends with '_i' and col_size = N, the entry represents N blown-up columns named prefix_1, prefix_2, ..., prefix_N (TopCat style). If name does not end with '_i' and col_size > 1, the column directly contains vector cells of that length (FITS binary / Parquet style). If col_size is absent, the name is taken literally."
           },
           "qc": {
             "type": ["object", "null"],

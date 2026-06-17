@@ -9,7 +9,7 @@ coauthors:
 DOIs:
 - DOI: 10.5281/zenodo.10059903
   type: software
-description: Photometric classification catalogue demonstrating native vector columns (FITS binary / Parquet style). The prob field is a native vector column where each cell contains a 3-element vector of class probabilities (star, galaxy, QSO). The sed_flux field is a native vector column where each cell contains fluxes in 9 photometric bands. Using col_size without the _X suffix encodes this native vector column convention.
+description: Photometric classification catalogue demonstrating native vector columns (FITS binary / Parquet style). The prob field is a native vector column where each cell contains a 3-element vector of class probabilities (star, galaxy, QSO). The sed_flux field is a native vector column where each cell contains fluxes in 9 photometric bands. Using col_size without the _i suffix encodes this native vector column convention.
 comments:
 - Class order for prob is always star, galaxy, QSO.
 - SED band order for sed_flux is u, g, r, i, z, Y, J, H, K.
