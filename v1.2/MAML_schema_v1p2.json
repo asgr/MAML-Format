@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dataset Metadata Schema",
+  "type": "object",
+  "properties": {
+    "survey": {
+      "type": "string",
+      "description": "Optional survey name"
+    },
+    "dataset": {
+      "type": "string",
+      "description": "Recommended dataset name"
+    },
+    "table": {
+      "type": "string",
+      "description": "Required table name"
+    },
+    "version": {
+      "type": ["string", "number"],
+      "description": "Required version (string, integer, or float)"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Required date in YYYY-MM-DD format (ISO-8601)"
+    },
+    "author": {
+      "type": "string",
+      "description": "Required lead author name and <email>"
+    },
+    "coauthors": {
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+      "description": "Optional coauthor name and optionally <email>"
+    },
+    "DOIs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["DOI", "type"],
+        "properties": {
+          "DOI": {
+            "type": "string",
+            "description": "Valid DOI"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of DOI"
+          }
+        }
+      },
+      "description": "Optional list of DOI references related to this table"
+    },
+    "depends": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["table"],
+        "properties": {
+          "survey": {
+            "type": "string",
+            "description": "The name of the dependent survey."
+          },
+          "dataset": {
+            "type": "string",
+            "description": "The name of the dependent dataset."
+          },
+          "table": {
+            "type": "string",
+            "description": "The name of the dependent table."
+          },
+          "version": {
+            "type": ["string", "number"],
+            "description": "The version of the dependent table."
+          }
+        }
+      },
+      "description": "Optional list of other tables that this table depends on"
+    },
+    "description": {
+      "type": "string",
+      "description": "Recommended short description of the table"
+    },
+    "comments": {
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+      "description": "Optional comment or interesting fact"
+    },
+    "license": {
+      "type": ["string", "null"],
+      "description": "Recommended license for the data"
+    },
+    "keywords": {
+      "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+      "description": "Optional keyword tag"
+    },
+    "keyarray": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value", "comment"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key name"
+          },
+          "value": {
+            "oneOf": [
+              { "type": ["number", "string"]},
+              { "type": "array", "items": { "type": ["number", "string"]} }
+             ],
+            "description": "Value/s of key"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Description of key"
+          }
+        }
+      },
+      "description": "Optional FITS style key-value-comment array"
+    },
+    "extra": {
+      "type": "object",
+      "description": "Optional free-form field for any legal YAML content"
+    },
+    "MAML_version": {
+      "type": "number",
+      "const": 1.2,
+      "description": "Optional version of the MAML schema"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "data_type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Required field name"
+          },
+          "unit": {
+            "type": ["string", "null"],
+            "description": "Recommended unit of measurement"
+          },
+          "info": {
+            "type": ["string", "null"],
+            "description": "Recommended short description. When col_size is used, info should describe what the vector represents (e.g. spectral flux values, class probabilities)."
+          },
+          "ucd": {
+            "oneOf": [
+              { "type": "string"},
+              { "type": "array", "items": { "type": "string"} },
+              { "type": "null" }
+             ],
+            "description": "Recommended UCD string"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "Required data type (e.g., int32, string, boolean, float64)"
+          },
+          "array_size": {
+            "type": ["integer", "string", "null"],
+            "description": "Optional max length of string"
+          },
+          "col_size": {
+            "type": ["integer", "null"],
+            "minimum": 1,
+            "description": "Optional vector column size (positive integer). If name ends with '_icol' and col_size = N (N >= 1), the entry represents N blown-up scalar columns named <prefix>_1, <prefix>_2, ..., <prefix>_N, where <prefix> is the part of name before the '_icol' suffix (TopCat style). If name does not end with '_icol' and col_size > 1, the column directly contains vector cells of that length (FITS binary / Parquet style). If col_size is null or omitted, the name is taken literally."
+          },
+          "qc": {
+            "type": ["object", "null"],
+            "required": ["min", "max", "miss"],
+            "properties": {
+              "min": {
+                "type": ["number", "string", "null"],
+                "description": "Minimum value expected in column data"
+              },
+              "max": {
+                "type": ["number", "string", "null"],
+                "description": "Maximum value expected in column data"
+              },
+              "miss": {
+                "type": ["number", "string", "null"],
+                "description": "Missing value indicator"
+              }
+            },
+            "description": "Optional quality control parameters"
+          }
+        }
+      },
+      "description": "Required list of fields in the table"
+    }
+  },
+  "required": ["table", "version", "date", "author", "fields"],
+  "additionalProperties": false
+}

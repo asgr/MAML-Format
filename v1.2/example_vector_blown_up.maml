@@ -1,0 +1,90 @@
+survey: The Big Spectroscopic Survey
+dataset: SpectraCatalogue
+table: Spec_North_01
+version: 1.0
+date: '2025-09-01'
+author: Dave Smith <dave_smith_is_not_here@gmail.com>
+coauthors:
+- Joe Bloggs <joe_bloggs_is_not_here@gmail.com>
+DOIs:
+- DOI: 10.1093/mnras/sty440
+  type: paper
+description: Spectroscopic catalogue demonstrating blown-up vector columns (TopCat style). The flux_icol and flux_err_icol fields each represent 5 individual scalar columns (flux_1 to flux_5 and flux_err_1 to flux_err_5) corresponding to 5 spectral wavelength bins. Using col_size with a name ending in _icol encodes this TopCat blown-up convention compactly in a single MAML field entry.
+comments:
+- Wavelength bins are evenly spaced between 4000 and 8000 Angstroms.
+- flux_icol and flux_err_icol each expand to 5 scalar columns per the col_size convention.
+license: MIT
+keywords:
+- spectroscopy
+- vector columns
+- TopCat
+MAML_version: 1.2
+fields:
+- name: ID
+  unit:
+  info: Unique source identifier
+  ucd:
+  - meta.id
+  - meta.main
+  data_type: int32
+  array_size:
+  col_size:
+  qc:
+    min: 1
+    max: 100000
+    miss: 'Null'
+- name: RA
+  unit: deg
+  info: Right ascension (J2000)
+  ucd: pos.eq.ra
+  data_type: float64
+  array_size:
+  col_size:
+  qc:
+    min: '>= 0'
+    max: '< 360'
+    miss: 'Null'
+- name: Dec
+  unit: deg
+  info: Declination (J2000)
+  ucd: pos.eq.dec
+  data_type: float64
+  array_size:
+  col_size:
+  qc:
+    min: -90
+    max: 90
+    miss: 'Null'
+- name: z
+  unit:
+  info: Spectroscopic redshift
+  ucd: src.redshift
+  data_type: float32
+  array_size:
+  col_size:
+  qc:
+    min: 0.0
+    max: 7.0
+    miss: 'Null'
+- name: flux_icol
+  unit: 1e-17 erg/s/cm2/Ang
+  info: 'Spectral flux density in 5 wavelength bins (4000, 5000, 6000, 7000, 8000 Angstroms). col_size = 5 means this entry represents 5 blown-up scalar columns: flux_1, flux_2, flux_3, flux_4, flux_5.'
+  ucd: phot.flux.density;em.wl
+  data_type: float32
+  array_size:
+  col_size: 5
+  qc:
+    min: -100.0
+    max: 10000.0
+    miss: 'Null'
+- name: flux_err_icol
+  unit: 1e-17 erg/s/cm2/Ang
+  info: '1-sigma uncertainty on spectral flux density in 5 wavelength bins. col_size = 5 means this entry represents 5 blown-up scalar columns: flux_err_1, flux_err_2, flux_err_3, flux_err_4, flux_err_5.'
+  ucd: stat.error;phot.flux.density;em.wl
+  data_type: float32
+  array_size:
+  col_size: 5
+  qc:
+    min: 0.0
+    max: 1000.0
+    miss: 'Null'
