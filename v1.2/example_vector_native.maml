@@ -1,0 +1,81 @@
+survey: The Big Photometric Survey
+dataset: ClassificationCatalogue
+table: Phot_Class_North_01
+version: 1.0
+date: '2025-09-01'
+author: Jane Doe <jane_doe_is_not_here@gmail.com>
+coauthors:
+- Joe Bloggs <joe_bloggs_is_not_here@gmail.com>
+DOIs:
+- DOI: 10.5281/zenodo.10059903
+  type: software
+description: Photometric classification catalogue demonstrating native vector columns (FITS binary / Parquet style). The prob field is a native vector column where each cell contains a 3-element vector of class probabilities (star, galaxy, QSO). The sed_flux field is a native vector column where each cell contains fluxes in 9 photometric bands. Using col_size without the _X suffix encodes this native vector column convention.
+comments:
+- Class order for prob is always star, galaxy, QSO.
+- SED band order for sed_flux is u, g, r, i, z, Y, J, H, K.
+- prob values are normalised to sum to 1.
+license: MIT
+keywords:
+- photometry
+- classification
+- vector columns
+- SED
+MAML_version: 1.2
+fields:
+- name: ID
+  unit:
+  info: Unique source identifier
+  ucd:
+  - meta.id
+  - meta.main
+  data_type: int32
+  array_size:
+  col_size:
+  qc:
+    min: 1
+    max: 1000000
+    miss: 'Null'
+- name: RA
+  unit: deg
+  info: Right ascension (J2000)
+  ucd: pos.eq.ra
+  data_type: float64
+  array_size:
+  col_size:
+  qc:
+    min: '>= 0'
+    max: '< 360'
+    miss: 'Null'
+- name: Dec
+  unit: deg
+  info: Declination (J2000)
+  ucd: pos.eq.dec
+  data_type: float64
+  array_size:
+  col_size:
+  qc:
+    min: -90
+    max: 90
+    miss: 'Null'
+- name: prob
+  unit:
+  info: 'Source classification probabilities for 3 classes (star, galaxy, QSO). col_size = 3 means each cell directly contains a 3-element probability vector (FITS binary / Parquet native vector column style).'
+  ucd: stat.probability;src.class
+  data_type: float32
+  array_size:
+  col_size: 3
+  qc:
+    min: 0.0
+    max: 1.0
+    miss: 'Null'
+- name: sed_flux
+  unit: nJy
+  info: 'SED photometric flux in 9 bands (u, g, r, i, z, Y, J, H, K). col_size = 9 means each cell directly contains a 9-element flux vector (FITS binary / Parquet native vector column style).'
+  ucd: phot.flux.density
+  data_type: float32
+  array_size:
+  col_size: 9
+  qc:
+    min: -1000.0
+    max: 1000000.0
+    miss: 'Null'

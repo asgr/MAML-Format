@@ -88,6 +88,29 @@ If producing a maximal **MAML** then the metadata can be considered a **MAML**-W
 
 **extra** is a totally free-form field that can contain any legal **YAML**. This cannot be validated beyond checking the name of the field. Using this field is therefore "user beware". We would not expect **MAML** readers and code that interacts with it to necessarily even make use of this field since it is effectively impossible to predict the contents. Avoid using this field unless it really cannot be avoided!
 
+### Informal Structure Overview MAML v1.2
+
+**MAML** v1.2 adds support for vector columns via a new optional *fields* attribute *col_size*. This covers both the FITS binary table / Parquet native vector column convention (where a single column cell contains a fixed-length array of values) and the TopCat "blown-up" convention (where a vector is spread across a set of individual scalar columns). Naturally if using this feature the *MAML_version* field should be 1.2.
+
+The new field attribute added within each item of *fields* is:
+
+- **col_size**: The number of elements in the vector column. *Scalar positive integer*. **[optional]**
+
+The behaviour of *col_size* depends on the *name* of the field:
+
+- If *name* ends with `_X` and *col_size* = N, the single MAML entry represents N individual scalar columns whose names follow the pattern *prefix*_1, *prefix*_2, ..., *prefix*_N (e.g. `flux_X` with `col_size: 5` represents the columns `flux_1`, `flux_2`, `flux_3`, `flux_4`, `flux_5`). This is consistent with the naming convention used by **TopCat** when it "blows up" vector columns into individual scalar columns.
+- If *name* does **not** end with `_X` and *col_size* > 1, the column directly contains vector cells of length *col_size* (i.e. a **FITS** binary table or **Parquet** native vector column where each cell holds a fixed-length array of values).
+- If *col_size* is absent, the *name* is taken literally. A field named `something_X` is simply a column called `something_X`. *col_size* is therefore never required, even in v1.2.
+- If *col_size* = 1 and *name* ends with `_X`, the single entry represents one column named *prefix*_1.
+
+When *col_size* is used to describe a vector column, the *info* field should clearly describe what the vector represents (e.g. spectral flux values in wavelength bins, classification probabilities, SED fluxes in multiple photometric bands).
+
+The *col_size* attribute is placed above *qc* in the field ordering:
+
+- **name** → **unit** → **info** → **ucd** → **data_type** → **array_size** → **col_size** → **qc**
+
+Worked examples illustrating both vector column conventions are provided in the v1.2 folder (`example_vector_blown_up.maml` for the TopCat blown-up style, `example_vector_native.maml` for the FITS/Parquet native style).
+
 ## MAML Format Example
 
 Imagine we have the following table:
