@@ -90,7 +90,7 @@ If producing a maximal **MAML** then the metadata can be considered a **MAML**-W
 
 ### Informal Structure Overview MAML v1.2
 
-**MAML** v1.2 adds support for vector columns via a new optional *fields* attribute *col_size*. This covers both the FITS binary table / Parquet native vector column convention (where a single column cell contains a fixed-length array of values) and the TopCat style "blown-up" convention (where a vector can be spread across a set of individual scalar columns). If using this feature the *MAML_version* field must be 1.2.
+**MAML** v1.2 adds support for vector columns via a new optional *fields* attribute *col_size*. This covers both the FITS binary table / Parquet native vector column convention (where a single column cell contains a fixed-length array of values) and the TopCat style "blown-up" convention (where a vector can be spread across a set of individual scalar columns). If using this feature the *MAML_version* field should be 1.2.
 
 The new field attribute added within each item of *fields* is:
 
