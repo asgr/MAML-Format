@@ -98,7 +98,7 @@ The new field attribute added within each item of *fields* is:
 
 The behaviour of *col_size* depends on the *name* of the field:
 
-- If *name* ends with `_i` and *col_size* = N, the single MAML entry represents N individual scalar columns whose names follow the pattern *prefix*_1, *prefix*_2, ..., *prefix*_N (e.g. `flux_i` with `col_size: 5` represents the columns `flux_1`, `flux_2`, `flux_3`, `flux_4`, `flux_5`). This is consistent with the naming convention used by **TopCat** when it "blows up" vector columns into individual scalar columns.
+- If *name* ends with `_i` and *col_size* = N, the single MAML entry represents 1:N individual scalar columns whose names follow the pattern *prefix*_1, *prefix*_2, ..., *prefix*_N (e.g. `flux_i` with `col_size: 5` represents the columns `flux_1`, `flux_2`, `flux_3`, `flux_4`, `flux_5`). This is consistent with the naming convention used by **TopCat** when it "blows up" vector columns into individual scalar columns. Note column vector element are always 1-indexed (including in TopCat).
 - If *name* does **not** end with `_i` and *col_size* > 1, the column directly contains vector cells of length *col_size* (i.e. a **FITS** binary table or **Parquet** native vector column where each cell holds a fixed-length array of values).
 - If *col_size* is absent, the *name* is taken literally. A field named `something_i` is simply a column called `something_i`. *col_size* is therefore never required, even in v1.2.
 - If *col_size* = 1 and *name* ends with `_i`, the single entry represents one column named *prefix*_1.
