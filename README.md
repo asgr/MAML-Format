@@ -30,7 +30,7 @@ Below we present an informal overview of the **MAML** format. A stricter machine
 
 ### Informal Structure Overview MAML v1.0
 
-The super set of allowed entries for **MAML** v1.0 is below. Not all are required, but if present they should obey the order and naming.
+The super set of allowed entries for **MAML** v1.0 is below. Not all are required, but if present they must obey the naming (this is validated) and should obey the order (this is not validated, but makes it easier for other users to read).
 
 - **survey**: The name of the survey. *Scalar string*. **[optional]**
 - **dataset**: The name of the dataset. *Scalar string*. **[recommended]**
