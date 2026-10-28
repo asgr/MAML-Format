@@ -59,10 +59,12 @@ The super set of allowed entries for **MAML** v1.0 is below. Not all are require
   - **ucd**: Unified Content Descriptor for IVOA (can have many). *Scalar/Vector string*. **[recommended]**
   - **data_type**: The data type of the field (e.g., `int32`, `string`, `boolean`, `float64`). *Scalar string*. **[required]**
   - **array_size**: Maximum length of character strings. *Scalar integer* or *Scalar string*. **[optional]**
-  - **qc**: Quality control check array (min-max-miss): **[optional]**
-    - **min**: Minimum value expected in column data. *Scalar numeric/string* **[required]**
-    - **max**: Maximum value expected in column data. *Scalar numeric/string* **[required]**
-    - **miss**: Missing value value. *Scalar numeric/string* **[required]**
+  - **qc**: Quality control parameters (min-max-miss): **[optional]**
+    - **min**: Minimum value expected in column data. *Scalar numeric/string* **[optional]**
+    - **max**: Maximum value expected in column data. *Scalar numeric/string* **[optional]**
+    - **miss**: Missing value indicator. *Scalar numeric/string* **[optional]**
+
+The *qc* entries are independently optional in MAML v1.0, v1.1 and v1.2: a *qc* object may contain any combination of them, including none.
 
 This metadata format can be used to document datasets in a standardised way, making it easier to understand and share data within the research community. By following this format, you ensure that all relevant information about the dataset is captured and easily accessible (for both machines and humans). This format contains the superset of metadata requirements for IVOA, Data Central and astronomy surveys.
 
