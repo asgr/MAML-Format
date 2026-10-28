@@ -174,7 +174,6 @@
           },
           "qc": {
             "type": ["object", "null"],
-            "required": ["min", "max", "miss"],
             "properties": {
               "min": {
                 "type": ["number", "string", "null"],
